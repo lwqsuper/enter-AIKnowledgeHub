@@ -4,6 +4,7 @@ import AIKnowledgeSection from "@/components/AIKnowledgeSection";
 import AIToolsSection from "@/components/AIToolsSection";
 import AgentTutorialSection from "@/components/AgentTutorialSection";
 import RAGTutorialSection from "@/components/RAGTutorialSection";
+import AIResourcesSection from "@/components/AIResourcesSection";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -17,6 +18,7 @@ const Index = () => {
         <AIToolsSection />
         <AgentTutorialSection />
         <RAGTutorialSection />
+        <AIResourcesSection />
       </main>
       <Footer />
       <Toaster />

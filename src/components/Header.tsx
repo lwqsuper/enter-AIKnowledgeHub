@@ -8,6 +8,7 @@ const navLinks = [
   { name: "工具推荐", href: "#tools" },
   { name: "AGENT教程", href: "#agent" },
   { name: "RAG教程", href: "#rag" },
+  { name: "学习资源", href: "#resources" },
 ];
 
 const Header = () => {
