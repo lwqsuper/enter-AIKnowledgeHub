@@ -5,6 +5,7 @@ import AIToolsSection from "@/components/AIToolsSection";
 import AgentTutorialSection from "@/components/AgentTutorialSection";
 import RAGTutorialSection from "@/components/RAGTutorialSection";
 import Footer from "@/components/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const Index = () => {
   return (
@@ -18,6 +19,7 @@ const Index = () => {
         <RAGTutorialSection />
       </main>
       <Footer />
+      <Toaster />
     </div>
   );
 };

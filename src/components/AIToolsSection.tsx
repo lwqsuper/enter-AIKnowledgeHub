@@ -1,54 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Zap, Palette, Code, FileText, Video, Bot } from "lucide-react";
-
-const tools = [
-  {
-    name: "ChatGPT",
-    description: "OpenAI出品的强大对话AI，支持多种任务场景",
-    category: "对话AI",
-    icon: Bot,
-    featured: true,
-  },
-  {
-    name: "Claude",
-    description: "Anthropic打造的智能助手，擅长长文本处理和分析",
-    category: "对话AI",
-    icon: Bot,
-    featured: true,
-  },
-  {
-    name: "Midjourney",
-    description: "顶级AI图像生成工具，创作令人惊艳的艺术作品",
-    category: "图像生成",
-    icon: Palette,
-    featured: false,
-  },
-  {
-    name: "Cursor",
-    description: "AI驱动的代码编辑器，大幅提升编程效率",
-    category: "编程助手",
-    icon: Code,
-    featured: true,
-  },
-  {
-    name: "Notion AI",
-    description: "集成AI的全能笔记工具，智能写作和总结",
-    category: "效率工具",
-    icon: FileText,
-    featured: false,
-  },
-  {
-    name: "Runway",
-    description: "创意视频生成和编辑平台，AI视频制作利器",
-    category: "视频生成",
-    icon: Video,
-    featured: false,
-  },
-];
+import { ArrowRight, Zap } from "lucide-react";
+import { toolItems } from "@/data/content";
 
 const AIToolsSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="tools" className="py-20 md:py-32 bg-secondary/20">
       <div className="section-container">
@@ -64,10 +23,11 @@ const AIToolsSection = () => {
 
         {/* Tools Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {tools.map((tool, index) => (
+          {toolItems.map((tool) => (
             <Card
-              key={index}
-              className="glass-card glow-hover transition-all duration-300 hover:border-primary/30 group relative overflow-hidden"
+              key={tool.id}
+              className="glass-card glow-hover transition-all duration-300 hover:border-primary/30 group relative overflow-hidden cursor-pointer"
+              onClick={() => navigate(`/detail/tool/${tool.id}`)}
             >
               {tool.featured && (
                 <div className="absolute top-4 right-4">
@@ -94,14 +54,19 @@ const AIToolsSection = () => {
                   <p className="text-muted-foreground text-sm flex-1 mb-4">
                     {tool.description}
                   </p>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="w-fit text-primary hover:text-primary hover:bg-primary/10 p-0"
-                  >
-                    了解更多
-                    <ExternalLink className="w-3 h-3 ml-1" />
-                  </Button>
+                  <div className="flex items-center justify-between">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="w-fit text-primary hover:text-primary hover:bg-primary/10 p-0"
+                    >
+                      了解更多
+                      <ArrowRight className="w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                    <span className="text-xs text-muted-foreground/60">
+                      {tool.updatedAt}
+                    </span>
+                  </div>
                 </div>
               </CardContent>
             </Card>

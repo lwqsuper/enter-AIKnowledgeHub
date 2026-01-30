@@ -1,38 +1,9 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Clock, BookOpen } from "lucide-react";
-
-const agentTutorials = [
-  {
-    title: "Agent开发入门指南",
-    description: "从零开始理解AI Agent的概念、架构设计和核心组件",
-    difficulty: "入门",
-    duration: "30分钟",
-    topics: ["Agent概念", "架构设计", "工具调用"],
-  },
-  {
-    title: "LangChain Agent实战",
-    description: "使用LangChain框架构建功能强大的AI Agent应用",
-    difficulty: "中级",
-    duration: "45分钟",
-    topics: ["LangChain", "ReAct", "工具集成"],
-  },
-  {
-    title: "AutoGPT原理解析",
-    description: "深入分析AutoGPT的自主决策机制和任务分解策略",
-    difficulty: "高级",
-    duration: "60分钟",
-    topics: ["自主决策", "任务规划", "记忆管理"],
-  },
-  {
-    title: "Multi-Agent系统设计",
-    description: "学习多Agent协作系统的设计模式和实现方法",
-    difficulty: "高级",
-    duration: "90分钟",
-    topics: ["多Agent", "协作模式", "分布式"],
-  },
-];
+import { agentTutorials } from "@/data/content";
 
 const difficultyColors: Record<string, string> = {
   入门: "bg-green-500/20 text-green-400 border-green-500/30",
@@ -41,6 +12,8 @@ const difficultyColors: Record<string, string> = {
 };
 
 const AgentTutorialSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="agent" className="py-20 md:py-32">
       <div className="section-container">
@@ -58,8 +31,9 @@ const AgentTutorialSection = () => {
         <div className="space-y-4">
           {agentTutorials.map((tutorial, index) => (
             <Card
-              key={index}
-              className="glass-card glow-hover transition-all duration-300 hover:border-primary/30 group"
+              key={tutorial.id}
+              className="glass-card glow-hover transition-all duration-300 hover:border-primary/30 group cursor-pointer"
+              onClick={() => navigate(`/detail/agent/${tutorial.id}`)}
             >
               <CardHeader className="pb-2">
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -100,15 +74,20 @@ const AgentTutorialSection = () => {
                       </Badge>
                     ))}
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-primary hover:text-primary hover:bg-primary/10 w-fit"
-                  >
-                    <BookOpen className="w-4 h-4 mr-2" />
-                    开始学习
-                    <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                  </Button>
+                  <div className="flex items-center gap-4">
+                    <span className="text-xs text-muted-foreground/60">
+                      {tutorial.updatedAt}
+                    </span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-primary hover:text-primary hover:bg-primary/10 w-fit"
+                    >
+                      <BookOpen className="w-4 h-4 mr-2" />
+                      开始学习
+                      <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>

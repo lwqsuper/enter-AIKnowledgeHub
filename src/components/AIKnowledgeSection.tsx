@@ -1,39 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Brain, MessageSquare, Image, Layers } from "lucide-react";
-
-const knowledgeItems = [
-  {
-    icon: Brain,
-    title: "大语言模型 (LLM)",
-    description: "深入了解GPT、Claude、Llama等主流大语言模型的原理、架构和应用场景",
-    tags: ["GPT-4", "Claude", "Llama"],
-    color: "text-blue-400",
-  },
-  {
-    icon: MessageSquare,
-    title: "Prompt工程",
-    description: "掌握提示词设计技巧，学会如何与AI高效沟通，获得更精准的输出结果",
-    tags: ["提示词优化", "Few-shot", "CoT"],
-    color: "text-green-400",
-  },
-  {
-    icon: Image,
-    title: "多模态AI",
-    description: "探索图像、视频、音频等多模态AI技术，了解DALL-E、Stable Diffusion等应用",
-    tags: ["图像生成", "视频AI", "语音识别"],
-    color: "text-purple-400",
-  },
-  {
-    icon: Layers,
-    title: "AI应用开发",
-    description: "从零开始构建AI应用，包括API调用、模型部署和产品化最佳实践",
-    tags: ["API集成", "微调", "部署"],
-    color: "text-orange-400",
-  },
-];
+import { knowledgeItems } from "@/data/content";
 
 const AIKnowledgeSection = () => {
+  const navigate = useNavigate();
+
   return (
     <section id="knowledge" className="py-20 md:py-32">
       <div className="section-container">
@@ -49,10 +21,11 @@ const AIKnowledgeSection = () => {
 
         {/* Knowledge Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {knowledgeItems.map((item, index) => (
+          {knowledgeItems.map((item) => (
             <Card
-              key={index}
+              key={item.id}
               className="glass-card glow-hover transition-all duration-300 hover:border-primary/30 cursor-pointer group"
+              onClick={() => navigate(`/detail/knowledge/${item.id}`)}
             >
               <CardHeader>
                 <div className="flex items-start gap-4">
@@ -80,6 +53,9 @@ const AIKnowledgeSection = () => {
                       {tag}
                     </Badge>
                   ))}
+                </div>
+                <div className="mt-3 text-xs text-muted-foreground/60">
+                  更新于 {item.updatedAt}
                 </div>
               </CardContent>
             </Card>

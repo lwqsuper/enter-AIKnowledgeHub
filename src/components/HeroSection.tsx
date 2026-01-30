@@ -1,7 +1,26 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, RefreshCw } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const HeroSection = () => {
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const { toast } = useToast();
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    
+    // 模拟刷新数据
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    toast({
+      title: "更新成功",
+      description: "已获取最新的AI资讯和教程内容",
+    });
+    
+    setIsRefreshing(false);
+  };
+
   return (
     <section
       id="hero"
@@ -62,6 +81,16 @@ const HeroSection = () => {
               }}
             >
               查看工具推荐
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              className="group"
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+            >
+              <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
+              {isRefreshing ? "更新中..." : "更新资讯"}
             </Button>
           </div>
 
