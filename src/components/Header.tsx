@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Settings } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { name: "首页", href: "#hero" },
@@ -55,6 +56,13 @@ const Header = () => {
                 {link.name}
               </a>
             ))}
+            <Link 
+              to="/admin" 
+              className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium flex items-center gap-1"
+            >
+              <Settings className="w-4 h-4" />
+              后台管理
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -85,6 +93,14 @@ const Header = () => {
                   {link.name}
                 </a>
               ))}
+              <Link 
+                to="/admin" 
+                className="text-muted-foreground hover:text-primary transition-colors text-sm font-medium flex items-center gap-1"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <Settings className="w-4 h-4" />
+                后台管理
+              </Link>
             </div>
           </div>
         )}

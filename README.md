@@ -43,15 +43,36 @@ git clone <YOUR_GIT_URL>
 cd <YOUR_PROJECT_NAME>
 
 # Step 3: Install all dependencies
-npm install
+pnpm install
 
 # Step 4: Start the local development server
-npm run dev
+pnpm run dev
 ```
 
 Push your commits — Enter.pro will automatically detect and sync your latest changes.
 
 ---
+
+## Database Setup (Supabase)
+
+This project uses **Supabase** for data storage and management. To set it up:
+
+1.  **Create a Supabase Project**: Go to [Supabase](https://supabase.com) and create a new project.
+2.  **Run SQL Migration**: Copy the content of `supabase_schema.sql` (in the root directory) and run it in your Supabase SQL Editor to create the necessary tables (`modules`, `ai_news`).
+3.  **Environment Variables**:
+    *   Rename `.env.example` to `.env`.
+    *   Fill in your `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from your Supabase Project Settings -> API.
+
+## Admin Access
+
+*   **Admin URL**: `/admin`
+*   **Default Password**: `4428183` (Configured in `src/components/Admin/AdminAuthGuard.tsx`)
+
+## Features Implemented
+
+1.  **Admin Dashboard**: Manage homepage modules and AI news.
+2.  **AI News Feed**: Automatically fetch (simulated) and process news with difficulty classification.
+3.  **Authentication**: Simple password-based protection for admin area.
 
 ## Tech stack
 
@@ -62,6 +83,8 @@ This project uses:
 - React
 - shadcn-ui
 - Tailwind CSS
+- Supabase (Backend/DB)
+- Vitest (Testing)
 
 ---
 
