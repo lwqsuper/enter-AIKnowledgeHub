@@ -1,25 +1,11 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, RefreshCw } from "lucide-react";
+import { ArrowRight, Sparkles, GraduationCap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const HeroSection = () => {
-  const [isRefreshing, setIsRefreshing] = useState(false);
   const { toast } = useToast();
-
-  const handleRefresh = async () => {
-    setIsRefreshing(true);
-    
-    // 模拟刷新数据
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    toast({
-      title: "更新成功",
-      description: "已获取最新的AI资讯和教程内容",
-    });
-    
-    setIsRefreshing(false);
-  };
+  const navigate = useNavigate();
 
   return (
     <section
@@ -86,11 +72,10 @@ const HeroSection = () => {
               size="lg"
               variant="secondary"
               className="group"
-              onClick={handleRefresh}
-              disabled={isRefreshing}
+              onClick={() => navigate('/learning-path')}
             >
-              <RefreshCw className={`w-4 h-4 mr-2 ${isRefreshing ? "animate-spin" : ""}`} />
-              {isRefreshing ? "更新中..." : "更新资讯"}
+              <GraduationCap className="w-4 h-4 mr-2" />
+              AI 学习路径
             </Button>
           </div>
 

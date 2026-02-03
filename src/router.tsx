@@ -4,6 +4,7 @@ import DetailPage from "./pages/DetailPage";
 import AdminDashboard from "./pages/Admin/Dashboard";
 import NewsDetail from "./pages/NewsDetail";
 import NewsList from "./pages/NewsList";
+import AILearningPath from "./pages/AILearningPath";
 
 export const routers = [
     {
@@ -15,6 +16,11 @@ export const routers = [
       path: "/news",
       name: 'news-list',
       element: <NewsList />,
+    },
+    {
+      path: "/learning-path",
+      name: 'learning-path',
+      element: <AILearningPath />,
     },
     {
       path: "/admin",
