@@ -15,10 +15,10 @@ export default defineConfig(({ mode }) => {
       host: "::",
       port: 8080,
       proxy: {
-        '/api/openrouter': {
-          target: 'https://openrouter.ai/api/v1',
+        '/api/aliyun': {
+          target: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/openrouter/, ''),
+          rewrite: (path) => path.replace(/^\/api\/aliyun/, ''),
         },
       },
     },

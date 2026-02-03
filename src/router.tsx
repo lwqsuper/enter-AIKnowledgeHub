@@ -2,6 +2,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import DetailPage from "./pages/DetailPage";
 import AdminDashboard from "./pages/Admin/Dashboard";
+import NewsDetail from "./pages/NewsDetail";
+import NewsList from "./pages/NewsList";
 
 export const routers = [
     {
@@ -10,9 +12,19 @@ export const routers = [
       element: <Index />,
     },
     {
+      path: "/news",
+      name: 'news-list',
+      element: <NewsList />,
+    },
+    {
       path: "/admin",
       name: 'admin',
       element: <AdminDashboard />,
+    },
+    {
+      path: "/detail/news/:id",
+      name: 'news-detail',
+      element: <NewsDetail />,
     },
     {
       path: "/detail/:type/:id",

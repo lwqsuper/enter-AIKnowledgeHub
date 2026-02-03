@@ -3,12 +3,13 @@ import { newsService } from '@/services/newsService';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Loader2, RefreshCw, Trash2, ExternalLink } from 'lucide-react';
+import { Loader2, RefreshCw, Trash2, ExternalLink, FileText } from 'lucide-react';
 import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 export const NewsManager = () => {
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { data: newsList, isLoading } = useQuery({
     queryKey: ['ai_news'],
@@ -57,9 +58,9 @@ export const NewsManager = () => {
       {isLoading ? (
         <div className="flex justify-center p-12"><Loader2 className="animate-spin" /></div>
       ) : (
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {newsList?.map((item) => (
-            <Card key={item.id} className="relative group hover:shadow-md transition-shadow">
+            <Card key={item.id} className="relative group hover:shadow-md transition-shadow flex flex-col">
               <CardHeader className="pb-2">
                 <div className="flex justify-between items-start">
                   <Badge variant={
@@ -85,28 +86,38 @@ export const NewsManager = () => {
                   {new Date(item.created_at).toLocaleDateString()}
                 </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-1 flex flex-col justify-between">
                 <div className="bg-muted/50 p-3 rounded-md mb-3">
                   <p className="text-sm font-medium text-primary mb-1">AI 摘要</p>
                   <p className="text-sm text-muted-foreground line-clamp-3">
                     {item.summary}
                   </p>
                 </div>
-                {item.source_url && (
-                  <a 
-                    href={item.source_url} 
-                    target="_blank" 
-                    rel="noreferrer"
-                    className="text-xs text-blue-500 hover:underline flex items-center"
-                  >
-                    查看原文 <ExternalLink className="ml-1 h-3 w-3" />
-                  </a>
-                )}
+                <div className="flex gap-2 mt-auto pt-2">
+                  {item.source_url && item.source_url !== '#local-content' && (
+                    <a 
+                      href={item.source_url} 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="text-xs text-blue-500 hover:underline flex items-center"
+                    >
+                      查看原文 <ExternalLink className="ml-1 h-3 w-3" />
+                    </a>
+                  )}
+                  {(item.content || item.source_url === '#local-content') && (
+                    <button
+                      onClick={() => navigate(`/detail/news/${item.id}`)}
+                      className="text-xs text-primary hover:underline flex items-center cursor-pointer"
+                    >
+                      查看本地全文 <FileText className="ml-1 h-3 w-3" />
+                    </button>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}
           {newsList?.length === 0 && (
-            <div className="col-span-2 text-center py-12 text-muted-foreground border rounded-lg border-dashed">
+            <div className="col-span-full text-center py-12 text-muted-foreground border rounded-lg border-dashed">
               暂无资讯数据，请点击右上角获取
             </div>
           )}
