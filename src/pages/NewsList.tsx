@@ -5,8 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Loader2, ArrowLeft, ExternalLink, FileText, Calendar } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Layout from "@/components/Layout";
 
 const NewsList = () => {
   const navigate = useNavigate();
@@ -18,9 +17,8 @@ const NewsList = () => {
   const displayNews = newsList?.filter(item => item.is_published) || [];
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      <main className="flex-1 container mx-auto px-4 py-8">
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
         <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <Button 
@@ -94,9 +92,8 @@ const NewsList = () => {
             ))}
           </div>
         )}
-      </main>
-      <Footer />
-    </div>
+      </div>
+    </Layout>
   );
 };
 

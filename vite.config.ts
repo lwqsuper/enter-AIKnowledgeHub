@@ -15,6 +15,10 @@ export default defineConfig(({ mode }) => {
       host: "::",
       port: 8080,
       proxy: {
+        '/api/chat': {
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+        },
         '/api/aliyun': {
           target: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
           changeOrigin: true,

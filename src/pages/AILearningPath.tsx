@@ -3,18 +3,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowLeft, Brain, Code, Rocket, Sparkles, Database, Layout, GitBranch, Lightbulb } from "lucide-react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { ArrowLeft, Brain, Code, Rocket, Sparkles, Layout as LayoutIcon, GitBranch, Lightbulb, Target, Cpu, Layers } from "lucide-react";
+import Layout from "@/components/Layout";
 
 const AILearningPath = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <Header />
-      
-      <main className="flex-1 container mx-auto px-4 py-8">
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <Button 
             variant="ghost" 
@@ -43,8 +40,9 @@ const AILearningPath = () => {
         </div>
 
         <Tabs defaultValue="projects" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-2 md:w-[400px]">
+          <TabsList className="grid w-full grid-cols-3 md:w-[600px]">
             <TabsTrigger value="projects">项目路演</TabsTrigger>
+            <TabsTrigger value="overview">项目总览</TabsTrigger>
             <TabsTrigger value="learning">学习复盘</TabsTrigger>
           </TabsList>
 
@@ -149,6 +147,114 @@ const AILearningPath = () => {
             </section>
           </TabsContent>
 
+          <TabsContent value="overview" className="space-y-8">
+            <section className="mb-12">
+              <h2 className="text-2xl font-bold mb-4 flex items-center">
+                <Target className="mr-2 h-6 w-6 text-primary" />
+                项目概述
+              </h2>
+              <Card>
+                <CardContent className="pt-6">
+                  <p className="text-lg leading-relaxed text-muted-foreground">
+                    <span className="font-semibold text-foreground">FUSE TECH 华如锦</span> 是一个集 
+                    <span className="text-primary font-medium"> AI 前沿资讯聚合</span>、
+                    <span className="text-primary font-medium"> 技术工具推荐</span> 与 
+                    <span className="text-primary font-medium"> AI 编程学习路径</span> 于一体的综合性知识平台。
+                    项目旨在解决 AI 学习者面临的信息过载、语言障碍以及学习路径模糊等核心痛点，通过 AI 技术赋能信息的获取、处理与展示，打造一站式的 AI 知识枢纽。
+                  </p>
+                </CardContent>
+              </Card>
+            </section>
+
+            <div className="grid gap-8 md:grid-cols-2">
+              <section>
+                <h2 className="text-2xl font-bold mb-6 flex items-center">
+                  <Cpu className="mr-2 h-6 w-6 text-primary" />
+                  技术亮点与架构创新
+                </h2>
+                <div className="space-y-4">
+                  <Card className="border-l-4 border-l-blue-500">
+                    <CardHeader>
+                      <CardTitle className="text-lg">"RSS + LLM" 双引擎架构</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-2">
+                        创新采用“RSS 实时数据流 + LLM 认知处理”架构：
+                      </p>
+                      <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                        <li><strong>RSS</strong>：负责“保真”与“实时”，确保信源可靠。</li>
+                        <li><strong>LLM</strong>：负责“理解”与“重组”，生成结构化中文知识。</li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card className="border-l-4 border-l-green-500">
+                    <CardHeader>
+                      <CardTitle className="text-lg">成本与体验双重优化</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="list-disc list-inside text-sm text-muted-foreground space-y-1">
+                        <li><strong>Token 节约</strong>：仅处理元数据，避免全量消耗。</li>
+                        <li><strong>翻译持久化</strong>：数据库缓存翻译结果，实现“一次翻译，永久共享”，降本增效。</li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-l-4 border-l-purple-500">
+                    <CardHeader>
+                      <CardTitle className="text-lg">全栈 Serverless 实践</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground">
+                        React + Supabase + 阿里云百炼 (Qwen-Max)，构建现代化无后端开发体验。
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-6 flex items-center">
+                  <Layers className="mr-2 h-6 w-6 text-primary" />
+                  项目历程与迭代
+                </h2>
+                <div className="relative border-l border-muted ml-3 space-y-8 pl-8 py-2">
+                  <div className="relative">
+                    <span className="absolute -left-[41px] top-1 h-6 w-6 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-bold">1</span>
+                    <h3 className="font-bold text-base">Phase 1: 概念验证与试错</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      从尝试大模型联网搜索转向 RSS 聚合方案，解决幻觉与时效性问题。
+                    </p>
+                  </div>
+                  
+                  <div className="relative">
+                    <span className="absolute -left-[41px] top-1 h-6 w-6 rounded-full bg-muted border-2 border-background flex items-center justify-center text-xs font-bold">2</span>
+                    <h3 className="font-bold text-base">Phase 2: 核心功能构建</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      接入 rss2json 与 Qwen 模型，实现自动摘要分级与模拟数据兜底。
+                    </p>
+                  </div>
+
+                  <div className="relative">
+                    <span className="absolute -left-[41px] top-1 h-6 w-6 rounded-full bg-blue-100 border-2 border-blue-500 flex items-center justify-center text-xs font-bold text-blue-600">3</span>
+                    <h3 className="font-bold text-base text-primary">Phase 3: 体验深度优化</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      开发独立资讯列表/详情页，实现全文翻译与结果持久化存储。
+                    </p>
+                  </div>
+
+                  <div className="relative">
+                    <span className="absolute -left-[41px] top-1 h-6 w-6 rounded-full bg-green-100 border-2 border-green-500 flex items-center justify-center text-xs font-bold text-green-600">4</span>
+                    <h3 className="font-bold text-base text-green-600">Phase 4: 价值升维</h3>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      上线“AI 学习路径”页面，从工具站升级为“知识+方法论”综合平台。
+                    </p>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </TabsContent>
+
           <TabsContent value="learning" className="space-y-8">
             <div className="grid gap-8 md:grid-cols-2">
               <section>
@@ -228,10 +334,8 @@ const AILearningPath = () => {
             </div>
           </TabsContent>
         </Tabs>
-      </main>
-
-      <Footer />
-    </div>
+      </div>
+    </Layout>
   );
 };
 

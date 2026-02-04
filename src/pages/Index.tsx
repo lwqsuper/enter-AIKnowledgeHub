@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import AINewsSection from "@/components/AINewsSection";
 import AIKnowledgeSection from "@/components/AIKnowledgeSection";
@@ -6,25 +5,19 @@ import AIToolsSection from "@/components/AIToolsSection";
 import AgentTutorialSection from "@/components/AgentTutorialSection";
 import RAGTutorialSection from "@/components/RAGTutorialSection";
 import AIResourcesSection from "@/components/AIResourcesSection";
-import Footer from "@/components/Footer";
-import { Toaster } from "@/components/ui/toaster";
+import Layout from "@/components/Layout";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main>
-        <HeroSection />
-        <AINewsSection />
-        <AIKnowledgeSection />
-        <AIToolsSection />
-        <AgentTutorialSection />
-        <RAGTutorialSection />
-        <AIResourcesSection />
-      </main>
-      <Footer />
-      <Toaster />
-    </div>
+    <Layout>
+      <HeroSection />
+      <AINewsSection />
+      <AIKnowledgeSection />
+      <AIToolsSection />
+      <AgentTutorialSection />
+      <RAGTutorialSection />
+      <AIResourcesSection />
+    </Layout>
   );
 };
 
