@@ -133,16 +133,50 @@ export const newsService = {
     try {
       // 1. Fetch from RSS feeds
       const RSS_FEEDS = [
-        // TechCrunch AI
-        'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.feedburner.com%2FTechCrunch%2FArtificialIntelligence',
-        // The Verge AI
-        'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.theverge.com%2Frss%2Fartificial-intelligence%2Findex.xml',
-        // MIT Technology Review (using a proxy if needed, or try direct via rss2json)
-        'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.technologyreview.com%2Ftopic%2Fartificial-intelligence%2Ffeed',
+        //量子位（QbitAI）	专注 AI/科技前沿，报道专业且及时
+        // 'https://www.qbitai.com/feed',
+        //机器之心	覆盖技术、产业、论文，内容权威
+        'https://www.jiqizhixin.com/rss',
+
+                // TechCrunch AI
+        // 'https://api.rss2json.com/v1/api.json?rss_url=http%3A%2F%2Ffeeds.feedburner.com%2FTechCrunch%2FArtificialIntelligence',
+        // // The Verge AI
+        // 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.theverge.com%2Frss%2Fartificial-intelligence%2Findex.xml',
+        // // MIT Technology Review (using a proxy if needed, or try direct via rss2json)
+        // 'https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.technologyreview.com%2Ftopic%2Fartificial-intelligence%2Ffeed',
       ];
 
-      // Fetch all feeds in parallel
-      const feedPromises = RSS_FEEDS.map(url => fetch(url).then(res => res.json()).catch(err => null));
+      // Fetch all feeds in parallel using rss2json API via local proxy (to avoid mixed content/cors issues if any)
+      // Note: We use the proxy /api/rss but actually we can also call rss2json directly if CORS allows.
+      // Since we already set up /api/rss which proxies ANY url, we can use it to fetch the rss2json API result.
+      const feedPromises = RSS_FEEDS.map(url => {
+        // Construct rss2json URL
+        const rss2jsonUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`;
+        
+        // Use our local proxy to fetch the JSON from rss2json
+        return fetch(`/api/rss?url=${encodeURIComponent(rss2jsonUrl)}`)
+          .then(res => {
+            if (!res.ok) throw new Error(`Failed to fetch ${url}`);
+            return res.json(); // rss2json returns JSON
+          })
+          .then(data => {
+             if (data.status !== 'ok') throw new Error('rss2json status not ok');
+             return {
+               status: 'ok',
+               items: data.items.map((item: any) => ({
+                 title: item.title,
+                 link: item.link,
+                 description: item.description,
+                 content: item.content || item.description,
+                 pubDate: item.pubDate
+               }))
+             };
+          })
+          .catch(err => {
+            console.error(`Error fetching feed ${url}:`, err);
+            return null;
+          });
+      });
       const feeds = await Promise.all(feedPromises);
 
       // Aggregate items

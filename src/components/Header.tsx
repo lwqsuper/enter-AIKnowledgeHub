@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Settings } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const navLinks = [
   { name: "首页", href: "#hero" },
@@ -14,13 +14,22 @@ const navLinks = [
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+  const handleNavClick = (href: string) => {
     setMobileMenuOpen(false);
+
+    // 如果已经在首页
+    if (location.pathname === "/") {
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    } else {
+      // 如果不在首页，先跳转到首页，并通过 state 传递锚点
+      navigate("/", { state: { scrollTo: href } });
+    }
   };
 
   return (
@@ -28,18 +37,20 @@ const Header = () => {
       <nav className="section-container py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#hero"
+          <Link
+            to="/"
             onClick={(e) => {
-              e.preventDefault();
-              scrollToSection("#hero");
+              if (location.pathname === "/") {
+                e.preventDefault();
+                handleNavClick("#hero");
+              }
             }}
             className="flex items-center gap-2 text-xl font-bold text-foreground hover:opacity-80 transition-opacity"
           >
             <span className="w-3 h-3 rounded-full bg-primary animate-pulse" />
             <span>FUSE_TECH</span>
             <span className="text-primary">.</span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-8">
@@ -49,9 +60,9 @@ const Header = () => {
                 href={link.href}
                 onClick={(e) => {
                   e.preventDefault();
-                  scrollToSection(link.href);
+                  handleNavClick(link.href);
                 }}
-                className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+                className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium cursor-pointer"
               >
                 {link.name}
               </a>
@@ -86,9 +97,9 @@ const Header = () => {
                   href={link.href}
                   onClick={(e) => {
                     e.preventDefault();
-                    scrollToSection(link.href);
+                    handleNavClick(link.href);
                   }}
-                  className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+                  className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium cursor-pointer"
                 >
                   {link.name}
                 </a>

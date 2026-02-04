@@ -71,6 +71,12 @@ const NewsDetail = () => {
     );
   }
 
+  // Process content to replace image URLs with proxy URLs
+  const processedContent = news.content?.replace(
+    /src="(https?:\/\/[^"]+)"/g, 
+    (match, url) => `src="/api/image-proxy?url=${encodeURIComponent(url)}"`
+  ) || '';
+
   return (
     <Layout>
       <div className="container mx-auto py-8 px-4 max-w-4xl">
@@ -148,7 +154,7 @@ const NewsDetail = () => {
             
             <div 
               className="prose dark:prose-invert max-w-none text-lg leading-relaxed pb-20"
-              dangerouslySetInnerHTML={{ __html: news.content }}
+              dangerouslySetInnerHTML={{ __html: processedContent }}
             />
           </div>
         </article>

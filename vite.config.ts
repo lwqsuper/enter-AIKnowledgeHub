@@ -19,6 +19,14 @@ export default defineConfig(({ mode }) => {
           target: 'http://localhost:3001',
           changeOrigin: true,
         },
+        '/api/rss': {
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+        },
+        '/api/image-proxy': {
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+        },
         '/api/aliyun': {
           target: 'https://dashscope.aliyuncs.com/compatible-mode/v1',
           changeOrigin: true,
